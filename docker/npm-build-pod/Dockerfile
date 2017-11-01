@@ -5,7 +5,7 @@ USER root
 ADD https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm google-chrome-stable_current_x86_64.rpm
 RUN yum -y install redhat-lsb libXScrnSaver xdg-utils wget
 RUN yum -y localinstall google-chrome-stable_current_x86_64.rpm
-RUN echo ${CHROME_BIN}
+ENV CHROME_BIN /bin/google-chrome-stable
 
 RUN yum remove -y rh-nodejs4; \
     yum repolist > /dev/null && \
