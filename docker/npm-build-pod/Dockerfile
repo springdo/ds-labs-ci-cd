@@ -1,7 +1,12 @@
 #invoke npm in jenkinsfile: sh "scl enable rh-nodejs6 'npm run build'"
 FROM openshift/jenkins-slave-nodejs-rhel7:latest
 USER root
-RUN yum install -y google-chrome-stable
+
+ADD https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm google-chrome-stable_current_x86_64.rpm
+RUN yum -y install redhat-lsb libXScrnSaver xdg-utils wget
+RUN yum -y localinstall google-chrome-stable_current_x86_64.rpm
+RUN echo ${CHROME_BIN}
+
 RUN yum remove -y rh-nodejs4; \
     yum repolist > /dev/null && \
     INSTALL_PKGS="rh-nodejs6 rh-nodejs6-npm rh-nodejs6-nodejs-nodemon nss_wrapper" && \
