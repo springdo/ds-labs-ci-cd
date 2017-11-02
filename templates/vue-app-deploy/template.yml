@@ -47,7 +47,7 @@ objects:
           imagePullPolicy: Always
           name: "${NAME}"
           ports:
-          - containerPort: 80
+          - containerPort: 8080
             protocol: TCP
           resources: {}
           terminationMessagePath: "/dev/termination-log"
@@ -56,16 +56,6 @@ objects:
         securityContext: {}
         terminationGracePeriodSeconds: 30
     test: false
-    triggers:
-    - type: ConfigChange
-    - imageChangeParams:
-        automatic: true
-        containerNames:
-        - "${NAME}"
-        from:
-          kind: ImageStreamTag
-          name: "${NAME}:latest"
-      type: ImageChange
 - apiVersion: v1
   kind: Service
   metadata:
@@ -74,10 +64,10 @@ objects:
     name: "${NAME}"
   spec:
     ports:
-    - name: 80-tcp
-      port: 80
+    - name: 8080-tcp
+      port: 8080
       protocol: TCP
-      targetPort: 80
+      targetPort: 8080
     selector:
       name: "${NAME}"
     sessionAffinity: None
@@ -90,7 +80,7 @@ objects:
     name: "${NAME}"
   spec:
     port:
-      targetPort: 80-tcp
+      targetPort: 8080-tcp
     to:
       kind: Service
       name: "${NAME}"
@@ -107,11 +97,15 @@ objects:
     name: jenkins
     namespace: "${PIPELINES_NAMESPACE}"
   userNames:
-  - system:serviceaccount:${PIPELINES_NAMESPACE}:jenkins
+  - system:serviceaccount:${PIPELINES_NAMESPACE}:${DEPLOYER_USER}
 parameters:
 - name: NAME
   displayName: Name
   description: The name assigned to all objects and the related imagestream.
+  required: true
+- name: DEPLOYER_USER
+  displayName: Deployer User
+  description: The name to the serviceaccount user for deploying apps eg jenkins
   required: true
 - name: PIPELINES_NAMESPACE
   displayName: Project/Namespace for Jenkins Pipelines

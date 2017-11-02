@@ -20,10 +20,6 @@ openshift_cluster_content:
     template: "{{ inventory_dir }}/../../templates/sonarqube/template.json"
     params: "{{ inventory_dir }}/../params/sonarqube/build_params"
     namespace: labs-ci-cd
-  - name: mvn-build-pod
-    template: "{{ inventory_dir }}/../../templates/jenkins-slave-pod/template.json"
-    params: "{{ inventory_dir }}/../params/mvn-build-pod/build_params"
-    namespace: labs-ci-cd
   - name: npm-build-pod
     template: "{{ inventory_dir }}/../../templates/jenkins-slave-pod/template.json"
     params: "{{ inventory_dir }}/../params/npm-build-pod/build_params"
