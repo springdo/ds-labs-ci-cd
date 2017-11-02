@@ -27,7 +27,7 @@ openshift_cluster_content:
   - name: npm-build-pod
     template: "{{ inventory_dir }}/../../templates/jenkins-slave-pod/template.json"
     params: "{{ inventory_dir }}/../params/npm-build-pod/build_params"
-    namespace: labs-ci-cd
+    namespace: ci-cd
 - object: ci-cd-deployments
   content:
   - name: jenkins-ephemeral
@@ -37,20 +37,16 @@ openshift_cluster_content:
   - name: nexus
     template: "{{ inventory_dir }}/../../templates/nexus/template.json"
     params: "{{ inventory_dir }}/../params/nexus/deploy_params"
-    namespace: labs-ci-cd
+    namespace: ci-cd
 - object: app-builds
   content:
-  - name: java-app-build
-    template: "{{ inventory_dir }}/../../templates/s2i-app-build/template-no-secrets.json"
-    params: "{{ inventory_dir }}/../params/java-app/deploy_params"
-    namespace: labs-ci-cd
   - name: vue-app-build
-    template: "{{ inventory_dir }}/../../templates/s2i-app-build/template-no-secrets.json"
+    template: "{{ inventory_dir }}/../../templates/vue-app-build/template.yml"
     params: "{{ inventory_dir }}/../params/vue-app/deploy_params"
     namespace: labs-ci-cd
 - object: app-deployments
   content:
-  - name: java-app
-    template: "{{ inventory_dir }}/../../templates/http-app-deploy/template.json"
-    params: "{{ inventory_dir }}/../params/java-app-dev/deploy_params"
+  - name: vue-app
+    template: "{{ inventory_dir }}/../../templates/vue-app-deploy/template.yml"
+    params: "{{ inventory_dir }}/../params/vue-app-dev/deploy_params"
     namespace: labs-dev
