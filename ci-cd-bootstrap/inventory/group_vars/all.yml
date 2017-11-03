@@ -38,7 +38,7 @@ openshift_cluster_content:
   content:
   - name: vue-app-build
     template: "{{ inventory_dir }}/../../templates/vue-app-build/template.yml"
-    params: "{{ inventory_dir }}/../params/vue-app/deploy_params"
+    params: "{{ inventory_dir }}/../params/vue-app-build/deploy_params"
     namespace: labs-ci-cd
 - object: app-deployments
   content:
@@ -46,3 +46,11 @@ openshift_cluster_content:
     template: "{{ inventory_dir }}/../../templates/vue-app-deploy/template.yml"
     params: "{{ inventory_dir }}/../params/vue-app-dev/deploy_params"
     namespace: labs-dev
+  - name: vue-app
+    template: "{{ inventory_dir }}/../../templates/vue-app-deploy/template.yml"
+    params: "{{ inventory_dir }}/../params/vue-app-test/deploy_params"
+    namespace: labs-test
+  - name: vue-app
+    template: "{{ inventory_dir }}/../../templates/vue-app-deploy/template.yml"
+    params: "{{ inventory_dir }}/../params/vue-app-uat/deploy_params"
+    namespace: labs-uat
