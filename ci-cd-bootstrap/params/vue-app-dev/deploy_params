@@ -1,3 +1,5 @@
 PIPELINES_NAMESPACE=ci-cd
 NAME=vue-app
 DEPLOYER_USER=jenkins-bp
+APP_TAG=latest
+NAMESPACE=labs-dev

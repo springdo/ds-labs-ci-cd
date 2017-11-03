@@ -4,7 +4,7 @@ apiVersion: v1
 metadata:
   name: vue-app-deploy
   annotations:
-    openshift.io/display-name: HTTP App Deploy Template
+    openshift.io/display-name: Static vue js App Deploy Template
     description: A template to deploy your an App with a HTTP endpoint
     iconClass: icon-cube
     tags: http
@@ -43,7 +43,7 @@ objects:
           name: "${NAME}"
       spec:
         containers:
-        - image: "${NAME}"
+        - image: "docker-registry.default.svc/${NAMESPACE}/${NAME}:${APP_TAG}"
           imagePullPolicy: Always
           name: "${NAME}"
           ports:
@@ -51,6 +51,12 @@ objects:
             protocol: TCP
           resources: {}
           terminationMessagePath: "/dev/termination-log"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 1
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         securityContext: {}
@@ -102,6 +108,14 @@ parameters:
 - name: NAME
   displayName: Name
   description: The name assigned to all objects and the related imagestream.
+  required: true
+- name: APP_TAG
+  displayName: App Tag
+  description: The tag of the image to use eg latest.
+  required: true
+- name: NAMESPACE
+  displayName: Docker image namespace
+  description: The namespace of the image to use eg js-apps.
   required: true
 - name: DEPLOYER_USER
   displayName: Deployer User
