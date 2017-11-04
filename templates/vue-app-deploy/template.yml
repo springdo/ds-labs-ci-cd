@@ -62,6 +62,7 @@ objects:
         securityContext: {}
         terminationGracePeriodSeconds: 30
     test: false
+    triggers: []
 - apiVersion: v1
   kind: Service
   metadata:

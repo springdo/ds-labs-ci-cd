@@ -45,7 +45,7 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: "${NAME}:latest"
+        name: "${NAME}:{BUILD_TAG}"
     postCommit: {}
     resources: {}
     runPolicy: Serial
@@ -70,6 +70,11 @@ parameters:
   description: The name assigned to all objects and the resulting imagestream.
   required: true
   value: s2i-app
+- name: BUILD_TAG
+  displayName: Build Tag for Docker image
+  description: The tag to apply to the Docker image being built.
+  required: true
+  value: latest
 - name: PIPELINE_SOURCE_REPOSITORY_URL
   displayName: Git Repository URL
   description: The URL of the repository with your Jenkinsfile.
