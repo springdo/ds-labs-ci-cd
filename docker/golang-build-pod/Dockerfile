@@ -5,7 +5,7 @@ USER root
 ADD https://dl.google.com/go/go1.9.3.linux-amd64.tar.gz /usr/
 RUN mkdir -p /usr/local && \
     tar -xzf /usr/go1.9.3.linux-amd64.tar.gz && \
-    mv /var/lib/origin/go /usr/local/
+    mv $(pwd)/go /usr/local/
 
 ENV GOROOT /usr/local/go
 ENV GOPATH /usr/src/go
