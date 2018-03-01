@@ -1,5 +1,5 @@
 #invoke npm in jenkinsfile: sh "scl enable rh-nodejs6 'npm run build'"
-FROM openshift/jenkins-slave-nodejs-rhel7:latest
+FROM openshift/jenkins-slave-base-centos7:latest
 USER root
 
 ADD https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm google-chrome-stable_current_x86_64.rpm
